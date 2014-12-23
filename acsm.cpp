@@ -171,7 +171,7 @@ static void ConvertCaseEx(unsigned char *d, unsigned char *s, int m)
 *  Add a pattern to the list of patterns terminated at this state.
 *  Insert at front of list.
 */
-static void AddMatchListEntry(ACSM_STRUCT * acsm, int state, ACSM_PATTERN * px)
+static void AddMatchListEntry(ACSM_STRUCT * acsm, int state, ACSM_PATTERN * px)  //将模式添加到匹配管理
 {
 	ACSM_PATTERN * p;
 	p = (ACSM_PATTERN *)AC_MALLOC(sizeof (ACSM_PATTERN));
@@ -210,7 +210,7 @@ static void AddPatternStates(ACSM_STRUCT * acsm, ACSM_PATTERN * p)
 	for (; n > 0; pattern++, n--)
 	{
 		acsm->acsmNumStates++;
-		acsm->acsmStateTable[state].NextState[*pattern] = acsm->acsmNumStates;
+		acsm->acsmStateTable[state].NextState[*pattern] = acsm->acsmNumStates; //这里的NextState[*pattern]需要编写代码测试
 		state = acsm->acsmNumStates;
 	}
 	/*Here,An accept state,just add into the MatchListof the state*/
@@ -385,9 +385,9 @@ int acsmCompile(ACSM_STRUCT * acsm)
 
 	/* Count number of states */
 	acsm->acsmMaxStates = 1; /*State 0*/
-	for (plist = acsm->acsmPatterns; plist != NULL; plist = plist->next)
+	for (plist = acsm->acsmPatterns; plist != NULL; plist = plist->next) 
 	{
-		acsm->acsmMaxStates += plist->n;
+		acsm->acsmMaxStates += plist->n; //求出所有模式的总和
 	}
 
 	acsm->acsmStateTable = (ACSM_STATETABLE *)AC_MALLOC(sizeof (ACSM_STATETABLE)* acsm->acsmMaxStates);

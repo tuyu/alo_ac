@@ -21,9 +21,9 @@
 typedef struct _acsm_pattern {
 
 	struct  _acsm_pattern *next;
-	unsigned char         *patrn;
-	unsigned char         *casepatrn;
-	int      n;
+	unsigned char         *patrn; //一个匹配模式 例如本例使用的test,会转为大写的
+	unsigned char         *casepatrn; //原始的匹配模式，不想patrn中会将匹配的模式转为大写
+	int      n; //模式的长度 例如 test为4个
 	int      nocase;
 	void   * id;
 	int         nmatch;
@@ -50,11 +50,11 @@ typedef struct  {
 */
 typedef struct {
 
-	int acsmMaxStates;
+	int acsmMaxStates; //求出所有模式的长度的和
 	int acsmNumStates;
 
-	ACSM_PATTERN    * acsmPatterns;
-	ACSM_STATETABLE * acsmStateTable;
+	ACSM_PATTERN    * acsmPatterns; //存储模式的列表
+	ACSM_STATETABLE * acsmStateTable; //状态表
 
 }ACSM_STRUCT;
 
